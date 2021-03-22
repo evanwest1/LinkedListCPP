@@ -11,10 +11,12 @@ int main()
 	cin >> numElements;
 	for (i = 0; i < numElements; ++i)
 	{
-		cout << "Enter value for index " << i + 1 << ": ";
+		cout << "Enter value for index " << (numElements - i) - 1 << ": ";
 		cin >> userElement;
 		l1.addNodeAtBeginning(userElement);
 	}
+	l1.printList();
+	l1.deleteNodeAtIndex(0);
 	l1.printList();
 	return 0;
 }
