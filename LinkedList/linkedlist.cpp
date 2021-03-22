@@ -1,11 +1,5 @@
 /* Data Structures */
 
-#include <iostream>
-#include <string>
-#include "linkedlist.h"
-
-using namespace std;
-
 /* LISTS - An abstract data type that can be implemented with an array
    but what if we want a list that will grow?
 
@@ -42,6 +36,12 @@ using namespace std;
    CONSIDER WHAT THE MOST COMMON OPERATION WILL BE. NO SUCH THING AS ONE IS BETTER THAN THE
    OTHER FOR ALL CASES.
 */
+#include <iostream>
+#include <string>
+#include "linkedlist.h"
+
+using namespace std;
+
 
 //Implementation 
 //The only identity we keep of a linked list for the whole time is the address to the head node
@@ -63,6 +63,7 @@ void LinkedList::addNodeAtBeginning(int x) {
 	temp->data = x;
 	temp->next = head; // This is only used when the list is empty
 	this->head = temp; // Setting list's head to newly created node
+	this->length++;
 }
 
 
@@ -79,13 +80,48 @@ void LinkedList::printList() //Currently this is only printing the last element 
 	{
 		if (itr->next == NULL)
 		{
-			cout << itr->data << endl;
+			cout << itr->data;
 			break;
 		}
 		cout << itr->data << " -> ";
 		itr = itr->next;
 	}
-	cout << "(from most recently inserted to least recently inserted)" << endl;
+	cout << " (from most recently inserted to least recently inserted)" << endl;
+}
+
+void LinkedList::deleteNodeAtIndex(int index)
+{
+	if (index < 0)
+	{
+		cout << "Lowest possible index is 0." << endl;
+		return;
+	}
+	else if (index > (this->length - 1))
+	{
+		cout << "Tried deleting node " << index << " but list's highest index is " << this->length - 1 << ". " << endl;
+		return;
+	}
+	else if (index == 0)
+	{
+		this->head = head->next;
+		this->length--;
+		return;
+	}
+	Node* itr = this->head;
+	for (int i = 0; i < index - 1; ++i) // Double check this executes correct number of times
+	{
+		itr = itr->next;
+	}
+	cout << "Deleting node " << index << " containing value " << itr->data << "..." << endl;
+	if (itr->next->next != NULL)
+	{
+		itr->next = itr->next->next;
+		this->length--;
+	}
+	else
+	{
+		itr->next = NULL;
+	}
 }
 
 

@@ -18,6 +18,7 @@ public:
 	void addNodeAtBeginning(int);
 	void printList();
 	Node* getHead();
+	void deleteNodeAtIndex(int);
 };
 
 #endif
